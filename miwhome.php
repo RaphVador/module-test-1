@@ -54,7 +54,7 @@ class MiwHome extends Module
 			&& $this->registerHook('header')
 			&& $this->registerHook('displayHomeTab')
 			&& $this->registerHook('displayHomeTabContent');
-		
+
 		if ($installOK)
 			return false;
 
@@ -106,7 +106,8 @@ class MiwHome extends Module
 
 	public function hookHeader($params)
 	{
-		echo '<br>hookHeader';
+		echo '<br>hookDisplayHomeTab';
+		var_dump($params);
 		// uniquement sur la homepage
 		if (isset($this->context->controller->php_self) && $this->context->controller->php_self == 'index')
 			$this->context->controller->addCSS(_THEME_CSS_DIR_.'product_list.css');
@@ -118,7 +119,7 @@ class MiwHome extends Module
 	public function hookDisplayHomeTab($params)
 	{
 		echo '<br>hookDisplayHomeTab';
-
+		var_dump($params);
 		return 'hookDisplayHomeTab';
 //		if (!$this->isCached('tab.tpl', $this->getCacheId('homefeatured-tab')))
 //			$this->_cacheProducts();
@@ -129,6 +130,7 @@ class MiwHome extends Module
 	public function hookDisplayHome($params)
 	{
 		echo '<br>hookDisplayHome';
+		var_dump($params);
 		if (!$this->isCached('homefeatured.tpl', $this->getCacheId()))
 		{
 			$this->_cacheProducts();
@@ -147,6 +149,8 @@ class MiwHome extends Module
 
 	public function hookDisplayHomeTabContent($params)
 	{
+		echo '<br>hookDisplayHomeTabContent';
+		var_dump($params);
 		return $this->hookDisplayHome($params);
 	}
 
