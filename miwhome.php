@@ -50,15 +50,12 @@ class MiwHome extends Module
 //		$this->_clearCache('*');
 		Configuration::updateValue('MYHOME_NB_BLOCS', 3);
 
-		if (!parent::install()
-			|| !$this->registerHook('header')
-//			|| !$this->registerHook('addproduct')
-//			|| !$this->registerHook('updateproduct')
-//			|| !$this->registerHook('deleteproduct')
-//			|| !$this->registerHook('categoryUpdate')
-			|| !$this->registerHook('displayHomeTab')
-			|| !$this->registerHook('displayHomeTabContent')
-		)
+		$installOK = parent::install()
+			&& $this->registerHook('header')
+			&& $this->registerHook('displayHomeTab')
+			&& $this->registerHook('displayHomeTabContent');
+		
+		if ($installOK)
 			return false;
 
 		return true;
@@ -75,7 +72,6 @@ class MiwHome extends Module
 		$output = '';
 		if (Tools::isSubmit('submitMyHome'))
 			$this->sauveConfiguration($output);
-
 
 		// 2 - rendu du formulaire de configuration
 		return $output.$this->renderForm();
@@ -132,7 +128,7 @@ class MiwHome extends Module
 
 	public function hookDisplayHome($params)
 	{
-		echo "<br>hookDisplayHome";
+		echo '<br>hookDisplayHome';
 		if (!$this->isCached('homefeatured.tpl', $this->getCacheId()))
 		{
 			$this->_cacheProducts();
