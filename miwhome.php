@@ -64,25 +64,25 @@ class MiwHome extends Module
 		return true;
 	}
 
-	public function uninstall()
+	/*public function uninstall()
 	{
 		return parent::uninstall();
-	}
+	}*/
 
 	public function getContent()
 	{
 		// 1 - gestion des actions
 		$output = '';
-		if (Tools::isSubmit('submitMyHome')) {
+		if (Tools::isSubmit('submitMyHome'))
 			$this->sauveConfiguration($output);
-		}
+
 
 		// 2 - rendu du formulaire de configuration
 		return $output.$this->renderForm();
 	}
 
-	public function sauveConfiguration(&$output) {
-
+	public function sauveConfiguration(&$output)
+	{
 		$errors = array();
 
 		// a - contrôle des valeurs passées
@@ -90,11 +90,11 @@ class MiwHome extends Module
 		if (!Validate::isInt($nbr) || $nbr <= 0)
 			$errors[] = $this->l('The number of products is invalid. Please enter a positive number.');
 
-
 		// b - affichage du résultat du traitement des actions
 		if (isset($errors) && count($errors))
 			$output = $this->displayError(implode('<br />', $errors));
-		else {
+		else
+		{
 			Configuration::updateValue('MYHOME_NB_BLOCS', (int)$nbr);
 			Tools::clearCache(Context::getContext()->smarty, $this->getTemplatePath('homefeatured.tpl'));
 			$output = $this->displayConfirmation($this->l('Your settings have been updated.'));
@@ -104,13 +104,13 @@ class MiwHome extends Module
 
 	public function hookDisplayHeader($params)
 	{
-		echo "<br>hookDisplayHeader";
+		echo '<br>hookDisplayHeader';
 		$this->hookHeader($params);
 	}
 
 	public function hookHeader($params)
 	{
-		echo "<br>hookHeader";
+		echo '<br>hookHeader';
 		// uniquement sur la homepage
 		if (isset($this->context->controller->php_self) && $this->context->controller->php_self == 'index')
 			$this->context->controller->addCSS(_THEME_CSS_DIR_.'product_list.css');
@@ -121,9 +121,9 @@ class MiwHome extends Module
 
 	public function hookDisplayHomeTab($params)
 	{
-		echo "<br>hookDisplayHomeTab";
+		echo '<br>hookDisplayHomeTab';
 
-		return hookDisplayHomeTab;
+		return 'hookDisplayHomeTab';
 //		if (!$this->isCached('tab.tpl', $this->getCacheId('homefeatured-tab')))
 //			$this->_cacheProducts();
 //
@@ -155,7 +155,7 @@ class MiwHome extends Module
 	}
 
 
-	public function _clearCache($template, $cache_id = NULL, $compile_id = NULL)
+	public function _clearCache($template, $cache_id = null, $compile_id = null)
 	{
 //		parent::_clearCache('homefeatured.tpl');
 //		parent::_clearCache('tab.tpl', 'homefeatured-tab');
