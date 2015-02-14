@@ -154,13 +154,6 @@ class MiwHome extends Module
 		return $this->hookDisplayHome($params);
 	}
 
-
-	public function _clearCache($template, $cache_id = null, $compile_id = null)
-	{
-//		parent::_clearCache('homefeatured.tpl');
-//		parent::_clearCache('tab.tpl', 'homefeatured-tab');
-	}
-
 	public function renderForm()
 	{
 		$fields_form = array(
