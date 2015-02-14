@@ -73,7 +73,6 @@ class MiwHome extends Module
 	{
 		// 1 - gestion des actions
 		$output = '';
-		$errors = array();
 		if (Tools::isSubmit('submitMyHome')) {
 			$this->sauveConfiguration($output);
 		}
@@ -83,6 +82,8 @@ class MiwHome extends Module
 	}
 
 	public function sauveConfiguration(&$output) {
+
+		$errors = array();
 
 		// a - contrôle des valeurs passées
 		$nbr = Tools::getValue('MYHOME_NB_BLOCS');
